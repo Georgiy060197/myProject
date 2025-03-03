@@ -4,3 +4,6 @@ let screenPrise = 10;
 const rollback = 0;
 let fullPrice = 30;
 const adaptive = 2;
+
+alert("Hello World!");
+console.log("Hello!!!")
