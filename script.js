@@ -2,10 +2,10 @@ const title = prompt("Как называется Ваш проект?")
 const screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные")
 const screenPrice = +prompt("Сколько будет стоить данная работа?")
 const rollback = 30.5
-let serviceQuestion1 = prompt("Какой дополнительный тип услуги нужен?")
-let servicePrice1 = +prompt("Сколько это будет стоить?")
-let serviceQuestion2 = prompt("Какой дополнительный тип услуги нужен?")
-let servicePrice2 = +prompt("Сколько это будет стоить?")
+const serviceQuestion1 = prompt("Какой дополнительный тип услуги нужен?")
+const servicePrice1 = +prompt("Сколько это будет стоить?")
+const serviceQuestion2 = prompt("Какой дополнительный тип услуги нужен?")
+const servicePrice2 = +prompt("Сколько это будет стоить?")
 
 const fullPrice = screenPrice + servicePrice1 + servicePrice2
 const adaptive = confirm("Нужен ли адаптив на сайте?", "Да, нет")
