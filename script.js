@@ -1,14 +1,38 @@
 'use strict'
-const title = prompt("Как называется Ваш проект?")
-const screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные")
-const screenPrice = +prompt("Сколько будет стоить данная работа?")
 const rollback = 30.5
-const serviceQuestion1 = prompt("Какой дополнительный тип услуги нужен?")
-const servicePrice1 = +prompt("Сколько это будет стоить?")
-const serviceQuestion2 = prompt("Какой дополнительный тип услуги нужен?")
-const servicePrice2 = +prompt("Сколько это будет стоить?")
+let title
+let screens
+let screenPrice
+let serviceQuestion1
+let servicePrice1
+let serviceQuestion2
+let servicePrice2
+
 //const adaptive = confirm("Нужен ли адаптив на сайте?", "Да, нет")
 
+const isNumber = function (num) {
+    return !isNaN(parseFloat(num)) && isFinite(num)
+}
+const asking = function () {
+    title = prompt("Как называется Ваш проект?", "Hello")
+    screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные")
+
+    do {
+        screenPrice = prompt("Сколько будет стоить данная работа?")
+    }
+    while (!isNumber(screenPrice))
+
+    serviceQuestion1 = prompt("Какой дополнительный тип услуги нужен?")
+    while (!isNumber(servicePrice1)) {
+        servicePrice1 = prompt("Сколько это будет стоить?")
+    }
+
+    serviceQuestion2 = prompt("Какой дополнительный тип услуги нужен?")
+    while (!isNumber(servicePrice2)) {
+        servicePrice2 = prompt("Сколько это будет стоить?")
+    }
+
+}
 
 const allServicePrices = function getFullPrice() {
     return servicePrice1 + servicePrice2
@@ -50,7 +74,7 @@ const getRollbackMessage = function (price) {
             break
     }
 }
-
+asking()
 console.log(allServicePrices)
 console.log(fullPrice)
 console.log(getTitle())
@@ -58,5 +82,7 @@ console.log(servicePercentPrice(fullPrice, percentPrice))
 console.log(getRollbackMessage(fullPrice))
 showTypeOf(title)
 showTypeOf(fullPrice)
+showTypeOf(screenPrice)
+showTypeOf
 //showTypeOf(adaptive)
 
