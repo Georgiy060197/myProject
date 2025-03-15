@@ -21,17 +21,19 @@ const asking = function () {
         screenPrice = prompt("Сколько будет стоить данная работа?")
     }
     while (!isNumber(screenPrice))
+    screenPrice = Number(screenPrice)
 
     serviceQuestion1 = prompt("Какой дополнительный тип услуги нужен?")
     while (!isNumber(servicePrice1)) {
         servicePrice1 = prompt("Сколько это будет стоить?")
     }
+    servicePrice1 = Number(servicePrice1)
 
     serviceQuestion2 = prompt("Какой дополнительный тип услуги нужен?")
     while (!isNumber(servicePrice2)) {
         servicePrice2 = prompt("Сколько это будет стоить?")
     }
-
+    servicePrice2 = Number(servicePrice2)
 }
 
 const allServicePrices = function getFullPrice() {
@@ -75,14 +77,10 @@ const getRollbackMessage = function (price) {
     }
 }
 asking()
-console.log(allServicePrices)
+console.log(allServicePrices())
 console.log(fullPrice)
 console.log(getTitle())
 console.log(servicePercentPrice(fullPrice, percentPrice))
 console.log(getRollbackMessage(fullPrice))
 showTypeOf(title)
 showTypeOf(fullPrice)
-showTypeOf(screenPrice)
-showTypeOf
-//showTypeOf(adaptive)
-
