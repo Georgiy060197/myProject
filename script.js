@@ -43,7 +43,7 @@ const allServicePrices = function getFullPrice() {
 function getFullPrice() {
     return screenPrice + allServicePrices()
 }
-let fullPrice = getFullPrice()
+const fullPrice = getFullPrice
 
 function getTitle() {
     return title.trim().charAt(0).toUpperCase() + title.slice(1).toLowerCase()
@@ -76,11 +76,12 @@ const getRollbackMessage = function (price) {
             break
     }
 }
+
 asking()
 console.log(allServicePrices())
-console.log(fullPrice)
+console.log(fullPrice())
 console.log(getTitle())
-console.log(servicePercentPrice(fullPrice, percentPrice))
-console.log(getRollbackMessage(fullPrice))
+console.log(servicePercentPrice(fullPrice(), percentPrice))
+getRollbackMessage(fullPrice())
 showTypeOf(title)
-showTypeOf(fullPrice)
+showTypeOf(fullPrice())
