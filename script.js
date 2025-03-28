@@ -40,10 +40,12 @@ const appData = {
                 price = prompt("Сколько будет стоить данная работа?")
             }
             while (!appData.isNumber(price))
-            appData.screens.push({ id: i, name: name, price: price })
+            appData.screens.push({ id: i, name: name, price: +price })
         }
 
-
+        appData.screenPrice = appData.screens.reduce(function (sum, item) {
+            return sum + item.price
+        }, 0)
 
         for (let i = 0; i < 2; i++) {
             let name = prompt("Какой дополнительный тип услуги нужен?")
@@ -116,6 +118,7 @@ const appData = {
         appData.getTitle()
         appData.getRollbackMessage(appData.fullPrice)
         console.log(appData.screens)
+        console.log(appData.screenPrice)
         //         console.log(appData.allServicePrices)
         //         console.log(appData.fullPrice)
         //         console.log(appData.getTitle())
