@@ -3,121 +3,124 @@
 const name = document.getElementsByTagName('h1')
 const button = document.getElementsByClassName('handler_btn')
 const plus = document.querySelector('.screen-btn')
-const otherItem1 = document.querySelectorAll('.other-items.percent')
-const otherItem2 = document.querySelectorAll('.other-items.number')
+const otherItemPercent = document.querySelectorAll('.other-items.percent')
+const otherItemNuber = document.querySelectorAll('.other-items.number')
 const rollbackInput = document.querySelector('.rollback input')
 const span = document.querySelector('.rollback span')
 const totalInput = document.getElementsByClassName('total-input')
 let allScreens = document.querySelectorAll('.screen')
 
-for (let i = 0; i < totalInput.length; i++) {
-    console.log(totalInput[i])
-}
-
-console.log(name[0].textContent)
-console.log(button)
-console.log(plus.textContent)
-console.log(otherItem1)
-console.log(otherItem2)
-console.log(rollbackInput)
-console.log(span)
-// const appData = {
-//     rollback: 30.5,
-//     title: "",
-//     screens: [],
-//     screenPrice: 0,
-//     serviceQuestion1: "",
-//     //servicePrice1: 0,
-//     serviceQuestion2: "",
-//     //servicePrice2: 0,
-//     servicePercentPrice: 0,
-//     allServicePrices: 0,
-//     fullPrice: 0,
-//     services: {},
-//     isNumber: function (num) {
-//         return !isNaN(parseFloat(num)) && isFinite(num)
-//     },
-//     asking: function () {
-//         appData.title = prompt("Как называется Ваш проект?", "Hello")
-
-//         for (let i = 0; i < 2; i++) {
-//             let name = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные")
-//             let price = 0
-//             do {
-//                 price = prompt("Сколько будет стоить данная работа?")
-//             }
-//             while (!appData.isNumber(price))
-//             appData.screens.push({ id: i, name: name, price: +price })
-//         }
-
-//         appData.screenPrice = appData.screens.reduce(function (sum, item) {
-//             return sum + item.price
-//         }, 0)
-
-//         for (let i = 0; i < 2; i++) {
-//             let name = prompt("Какой дополнительный тип услуги нужен?")
-//             let price = 0
-//             do {
-//                 price = prompt("Сколько это будет стоить?")
-//             }
-
-//             while (!appData.isNumber(price))
-//             appData.services[name] = +price
-//         }
-//     },
-
-//     getAllServicePrices: function () {
-//         for (let key in appData.services) {
-//             appData.allServicePrices += appData.services[key]
-//         }
-
-//     },
-//     getFullPrice: function () {
-//         appData.fullPrice = appData.screenPrice + appData.allServicePrices
-//     },
-//     getTitle: function () {
-//         return appData.title.trim().charAt(0).toUpperCase() + appData.title.slice(1).toLowerCase()
-//     },
-//     showTypeOf: function (variable) {
-//         console.log(variable, typeof variable)
-//     },
-//     getRollbackMessage: function (price) {
-//         switch (true) {
-//             case price > 30000:
-//                 console.log("Даем скидку в 10%");
-//                 break
-//             case price > 15000 && price < 30000:
-//                 console.log("Даем скидку в 5%");
-//                 break
-//             case price > 0 && price < 15000:
-//                 console.log("Скидка не предусмотрена");
-//                 break
-//             case price < 0:
-//                 console.log("Что то пошло не так");
-//                 break
-//         }
-//     },
-//     getServicePercentPrices: function (price, callBack) {
-//         appData.servicePercentPrice = price - callBack()
-//     },
-//     percentPrice: function () {
-//         return appData.fullPrice * (appData.rollback / 100)
-//     },
-//     start: function () {
-//         appData.asking()
-//         appData.getAllServicePrices()
-//         appData.getFullPrice()
-//         appData.getServicePercentPrices(appData.fullPrice, appData.percentPrice)
-//         appData.getTitle()
-//         appData.getRollbackMessage(appData.fullPrice)
-//         console.log(appData.screens)
-//         console.log(appData.screenPrice)
-//         appData.logger()
-//     },
-//     logger: function () {
-//         for (let key in appData) {
-//             console.log("Знаяение метода -" + " " + key + " " + "=" + " " + appData[key])
-//         }
-//     }
+// for (let i = 0; i < totalInput.length; i++) {
+//     console.log(totalInput[i])
 // }
-// appData.start()
+const appData = {
+    rollback: 0,
+    title: "",
+    screens: [],
+    screenPrice: 0,
+    servicePercentPrice: 0,
+    servicePricesPercent: 0,
+    servicePricesNumber: 0,
+    fullPrice: 0,
+    servicesPercent: {},
+    servicesNumber: {},
+    init: function () {
+        appData.addtitle()
+        rollbackInput.addEventListener('input', appData.chengePercent)
+
+        button[0].addEventListener('click', appData.start)
+
+
+        plus.addEventListener('click', appData.addScreensBlock)
+
+    },
+    addtitle: function () {
+        document.title = name[0].textContent
+    },
+    showResult: function () {
+        totalInput[0].value = appData.screenPrice
+        totalInput[2].value = appData.servicePercentPrice + appData.servicePricesNumber
+        totalInput[3].value = appData.fullPrice
+
+    },
+    addScreens: function () {
+        allScreens = document.querySelectorAll('.screen')
+        allScreens.forEach(function (screen, index) {
+            const select = screen.querySelector('select')
+            const input = screen.querySelector('input')
+            const selectName = select.options[select.selectedIndex].textContent
+            appData.screens.push({
+                id: index,
+                name: selectName,
+                price: +select.value * +input.value,
+                count: +input.value
+            })
+        })
+        console.log(appData.screens)
+    },
+
+    addServices: function () {
+        otherItemPercent.forEach(function (item) {
+            const check = item.querySelector('input[type=checkbox]')
+            const label = item.querySelector('label')
+            const input = item.querySelector('input[type=text]')
+            if (check.checked) {
+                appData.servicesPercent[label.textContent] = +input.value
+            }
+        })
+        otherItemNuber.forEach(function (item) {
+            const check = item.querySelector('input[type=checkbox]')
+            const label = item.querySelector('label')
+            const input = item.querySelector('input[type=text]')
+            if (check.checked) {
+                appData.servicesNumber[label.textContent] = +input.value
+            }
+        })
+    },
+    addScreensBlock: function () {
+        const cloneScreen = allScreens[0].cloneNode(true)
+        allScreens[allScreens.length - 1].after(cloneScreen)
+    },
+    chengePercent: function (e) {
+        span.textContent = e.target.value
+        appData.rollback = +span.textContent
+    },
+    getAllServicePrices: function () {
+        appData.screenPrice = appData.screens.reduce(function (sum, item) {
+            return sum + item.price
+        }, 0)
+        for (let key in appData.servicesNumber) {
+            appData.servicePricesNumber += appData.servicesNumber[key]
+        }
+        for (let key in appData.servicesPercent) {
+            appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100)
+        }
+        appData.fullPrice = appData.screenPrice + appData.servicePricesPercent + appData.servicePricesNumber
+        totalInput[4].value = appData.fullPrice - appData.servicePricesPercent
+        totalInput[1].value = appData.screens.reduce(function (sum, item) {
+            return sum + item.count
+        }, 0)
+    },
+
+    // getServicePercentPrices: function (price, callBack) {
+    //     appData.servicePercentPrice = price - callBack()
+    // },
+    // percentPrice: function () {
+    //     return appData.fullPrice * (appData.rollback / 100)
+    // },
+    start: function () {
+        appData.addScreens()
+        appData.addServices()
+        appData.getAllServicePrices()
+        // appData.getServicePercentPrices(appData.fullPrice, appData.percentPrice)
+        // appData.logger()
+        console.log(appData)
+        appData.showResult()
+    },
+    logger: function () {
+        for (let key in appData) {
+            console.log("Знаяение метода -" + " " + key + " " + "=" + " " + appData[key])
+        }
+    }
+}
+appData.init()
