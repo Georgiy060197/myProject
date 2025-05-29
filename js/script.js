@@ -10,9 +10,6 @@ const span = document.querySelector('.rollback span')
 const totalInput = document.getElementsByClassName('total-input')
 let allScreens = document.querySelectorAll('.screen')
 
-// for (let i = 0; i < totalInput.length; i++) {
-//     console.log(totalInput[i])
-// }
 const appData = {
     rollback: 0,
     title: "",
@@ -28,10 +25,15 @@ const appData = {
         appData.addtitle()
         rollbackInput.addEventListener('input', appData.chengePercent)
 
-        button[0].addEventListener('click', appData.start)
+        button[0].addEventListener('click', function () {
+            if (appData.checkValueBlock()) {
+                appData.start()
+            }
+
+        }),
 
 
-        plus.addEventListener('click', appData.addScreensBlock)
+            plus.addEventListener('click', appData.addScreensBlock)
 
     },
     addtitle: function () {
@@ -100,6 +102,21 @@ const appData = {
         totalInput[1].value = appData.screens.reduce(function (sum, item) {
             return sum + item.count
         }, 0)
+    },
+    checkValueBlock: function () {
+        allScreens = document.querySelectorAll('.screen')
+        let checkRezult = true
+        allScreens.forEach(function (screen) {
+            const select = screen.querySelector('select')
+            const input = screen.querySelector('input')
+            // const selectValue = select.options[select.selectedIndex].value
+            //const inputValue = input.value
+            if (select.value.length == 0 || input.value.length == 0) {
+                checkRezult = false
+                return
+            }
+        })
+        return checkRezult
     },
 
     // getServicePercentPrices: function (price, callBack) {
